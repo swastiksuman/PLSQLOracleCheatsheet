@@ -125,3 +125,41 @@ DECLARE
         close cur_get_employees;
     End If;    
 END;    
+
+/*
+CURSOR FOR LOOP
+*/
+
+DECLARE
+    CURSOR cur_get_employees IS
+        select emp_id, emp_sal * 0.11 bonus from employee;
+BEGIN
+    FOR cur_get_employees_var in cur_get_employees LOOP
+        dbms_output.put_line(cur_get_employees_var.emp_id || ' ' || cur_get_employees_var.bonus);
+    END LOOP;
+END;
+
+/*
+IMPLICIT CURSOR LOOP
+*/
+
+DECLARE
+    I_num NUMBER:=2;
+BEGIN
+    FOR cur_get_employees_var in (select emp_id, emp_sal * 0.11 bonus from employee where ROWNUM <=I_num) LOOP
+        dbms_output.put_line(cur_get_employees_var.emp_id || ' ' || cur_get_employees_var.bonus);
+    END LOOP;
+dbms_output.new_line;    
+END;
+
+/*
+NESTED CURSOR
+*/
+
+
+/*
+DEBUG ENABLER
+*/
+GRANT DEBUG CONNECT SESSION TO SYS;
+GRANT DEBUG ANY PROCEDURE TO SYS;
+
