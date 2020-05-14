@@ -21,3 +21,16 @@ BEGIN
 END;  
 
 execute GIVE_HIKE
+
+
+CREATE or replace procedure GIVE_HIKE_BY_ID(ID_TO_HIKE IN NUMBER, FINAL_SAL OUT NUMBER) AS
+
+  BEGIN
+    update employee set emp_sal = emp_sal * 1.1 where emp_id = ID_TO_HIKE returning emp_sal into FINAL_SAL;
+    commit;
+END;
+
+
+var final_sal NUMBER;
+execute GIVE_HIKE_BY_ID(1, :final_sal);
+print final_sal;
